@@ -3,11 +3,10 @@ const ATTRIBUTE_KEY = "data-key";
 const root = document.body.querySelector("#root");
 let historyMap = null;
 
-root.addEventListener("click", (event) => {
-  const row = event.target.closest("tr");
-  if (!row) return;
+root.addEventListener("click", ({ target }) => {
+  if (target.tagName !== "BUTTON") return;
 
-  const key = row.getAttribute(ATTRIBUTE_KEY);
+  const key = target.getAttribute(ATTRIBUTE_KEY);
   const values = historyMap?.get(key);
   if (!values) return;
 
@@ -18,7 +17,7 @@ root.addEventListener("click", (event) => {
 
   Promise.all(promises).then(() => {
     alert(`${key} forgotten!`);
-    row.remove();
+    target.closest("tr")?.remove();
   });
 });
 
@@ -45,15 +44,24 @@ chrome.history
     const rows = [];
     for (const [key, value] of historyMap) {
       const tr = document.createElement("tr");
-      tr.setAttribute(ATTRIBUTE_KEY, key);
 
       const td1 = document.createElement("td");
-      td1.innerText = key;
+      const a = document.createElement("a");
+      a.href = new URL(value[0].url).origin;
+      a.innerText = key;
+      a.target = "_blank";
+      td1.append(a);
 
       const td2 = document.createElement("td");
       td2.innerText = value.length;
 
-      tr.append(td1, td2);
+      const td3 = document.createElement("td");
+      const button = document.createElement("button");
+      button.innerText = "Forget";
+      button.setAttribute(ATTRIBUTE_KEY, key);
+      td3.appendChild(button);
+
+      tr.append(td1, td2, td3);
       rows.push(tr);
     }
 
