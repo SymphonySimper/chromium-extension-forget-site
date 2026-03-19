@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forget Site</title>
+  </head>
+  <body>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Host / Origin</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody id="root">
+          <tr>
+            <th colspan="2">
+              <h1>Loading...</h1>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <style>
+      :root {
+        --text-color: #222;
+        --border: 1px solid #d5d4d4;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        border: 0;
+      }
+
+      body {
+        --margin: 1rem;
+        --remove-margin: calc(2 * var(--margin));
+
+        margin: 1rem;
+        width: calc(100vw - var(--remove-margin));
+        height: calc(100vh - var(--remove-margin));
+        overflow: hidden;
+        color: var(--text-color);
+        border: var(--border);
+      }
+
+      div {
+        overflow: auto;
+        width: 100%;
+        height: 100%;
+
+        table {
+          width: 100%;
+          height: 100%;
+          table-layout: fixed;
+          border-collapse: separate;
+          border-spacing: 0px;
+
+          th,
+          td {
+            border-left: var(--border);
+            border-bottom: var(--border);
+            padding: 0.5rem;
+          }
+
+          th:first-of-type,
+          td:first-of-type {
+            border-left: 0;
+          }
+
+          thead {
+            position: sticky;
+            top: 0;
+            background-color: white;
+          }
+
+          tbody {
+            tr:last-of-type {
+              td,
+              th {
+                border-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    </style>
+    <script src="index.js"></script>
+  </body>
+</html>

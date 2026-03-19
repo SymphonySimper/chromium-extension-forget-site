@@ -1,0 +1,11 @@
+{
+  "name": "My Forget Site Extension",
+  "description": "Remove all history of a site",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "action": {},
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["history", "tabs"]
+}
